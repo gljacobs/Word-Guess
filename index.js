@@ -25,6 +25,7 @@ var ask = function () {
             userIn = false;
             var includes = false
             var temp = wordToGuess.display();
+            iResponse.userGuess = iResponse.userGuess.toLowerCase();
             if(iResponse.userGuess.toUpperCase() != iResponse.userGuess.toLowerCase() ){
                 if (temp.includes(iResponse.userGuess)) {
                     for (let i = 0; i < temp.length; i++) {
@@ -40,7 +41,7 @@ var ask = function () {
                 }
 
                 if(guesses === 0){
-                    console.log("\nLooks like you ran out of guesses... YOU LOSE");
+                    console.log(`\nLooks like you're out of guesses! The word was ${temp}... YOU LOSE`);
                     userIn = true;
                 }
 
