@@ -8,7 +8,7 @@ var blankString = wordToGuess.makeGuess();
 var userIn = false;
 var guesses = 7;
 
-console.log("\nLETS PLAY A GAME  OF HANGMAN");
+console.log("\nLETS PLAY A GAME OF HANGMAN");
 console.log("\n~~~~~ Can you guess what dinosaur I am thinking of? ~~~~~");
 
 var ask = function () {
@@ -26,7 +26,7 @@ var ask = function () {
             var includes = false
             var temp = wordToGuess.display();
             iResponse.userGuess = iResponse.userGuess.toLowerCase();
-            if(iResponse.userGuess.toUpperCase() != iResponse.userGuess.toLowerCase() ){
+            if (iResponse.userGuess.toUpperCase() != iResponse.userGuess.toLowerCase()) {
                 if (temp.includes(iResponse.userGuess)) {
                     for (let i = 0; i < temp.length; i++) {
                         if (temp[i] === iResponse.userGuess) {
@@ -40,12 +40,11 @@ var ask = function () {
                     guesses--;
                 }
 
-                if(guesses === 0){
+                if (guesses === 0) {
                     console.log(`\nLooks like you're out of guesses! The word was ${temp}... YOU LOSE`);
                     userIn = true;
                 }
-
-                if(temp === blankString){
+                if (temp === blankString) {
                     console.log("\nWOW! You won! You really know your dinos!!!!!!!");
                     userIn = true;
                 }
