@@ -3,18 +3,17 @@ var Word = require("./word");
 
 var log = ["tyrannosaurus", "pterodactyl", "velociraptor", "liopleurodon", "brachiosaurus", "triceratops", "stegosaurus"];
 
-var wordToGuess = new Word(log[2]);
+var wordToGuess = new Word(log[Math.floor(Math.random() * 7)]);
 var blankString = wordToGuess.makeGuess();
 var userIn = false;
+var guesses = 7;
 
 console.log("\nLETS PLAY A GAME  OF HANGMAN");
 console.log("\n~~~~~ Can you guess what dinosaur I am thinking of? ~~~~~");
 
-
-//while(wordToGuess.word !== wordToGuess.guess && !userIn) {
-var ask = function() {
+var ask = function () {
     userIn = true;
-    console.log(`\nGuesses left: ${blankString}`);
+    console.log(`\nYou have ${guesses} guesses left: ${blankString}`);
     inquirer.prompt([
         {
             input: "input",
@@ -22,25 +21,42 @@ var ask = function() {
             name: "userGuess"
         }
     ])
-    .then((iResponse) => {
-        userIn = false;
-        var includes = false
-        var temp = wordToGuess.display();
-                
-       while(temp.includes(iResponse.userGuess)) {
-           console.log(temp.indexOf(iResponse.userGuess));
-           
-           blankString = blankString.split("");
-           console.log(blankString);
-           
-           blankString[temp.indexOf(iResponse.userGuess)] = iResponse.userGuess;
-           blankString = blankString.join("");
-       }
-        while(!userIn) {
-            ask();
-        }
-    });    
+        .then((iResponse) => {
+            userIn = false;
+            var includes = false
+            var temp = wordToGuess.display();
+            if(iResponse.userGuess.toUpperCase() != iResponse.userGuess.toLowerCase() ){
+                if (temp.includes(iResponse.userGuess)) {
+                    for (let i = 0; i < temp.length; i++) {
+                        if (temp[i] === iResponse.userGuess) {
+                            blankString = blankString.split("");
+                            blankString[i] = iResponse.userGuess;
+                            blankString = blankString.join("");
+                        }
+                    }
+                }
+                else {
+                    guesses--;
+                }
+
+                if(guesses === 0){
+                    console.log("\nLooks like you ran out of guesses... YOU LOSE");
+                    userIn = true;
+                }
+
+                if(temp === blankString){
+                    console.log("\nWOW! You won! You really know your dinos!!!!!!!");
+                    userIn = true;
+                }
+            }
+            else {
+                console.log("\nPLEASE ENTER A VALID LETTER");
+            }
+
+            while (!userIn) {
+                ask();
+            }
+        });
 }
 
 ask();
-//}
