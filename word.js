@@ -9,20 +9,19 @@ var Word = function(wordIn) {
         return wordTemp;
     }
     this.word = this.addWord(wordIn);
-    this.makeGuess = function(num){
-        var temp = "";
-        for(var i = 0; i < num; i++){
-            temp += "_";
+    this.makeGuess = function(){
+        var blank = "";
+        for(var i = 0; i < this.word.length; i++){
+            blank += "_";
         }
-        return temp;
+        return blank;
     };
-    this.guess = this.makeGuess(this.word.length);
     this.display = function() {
         var showThis = ""
         for(var i = 0; i < this.word.length; i++){
             showThis += this.word[i].char;
         }
-        console.log(showThis);
+        return showThis;
     }
 }
 
